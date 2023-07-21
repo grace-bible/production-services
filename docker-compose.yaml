@@ -1,0 +1,7 @@
+---
+version: "3"
+include:
+  - homer.yaml
+  - n8n.yaml
+  - uptime-kuma.yaml
+#  - yt-dlp.yaml
