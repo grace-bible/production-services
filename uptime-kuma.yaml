@@ -6,7 +6,7 @@ services:
     environment:
       - TZ=America/Chicago
     volumes:
-      - /home/elliotmatson/containers/uptime-kuma/data:/app/data
+      - kuma-db:/app/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
     depends_on:
@@ -21,4 +21,5 @@ services:
       TAILSCALE_SERVE_PORT: 3001
 
 volumes:
+  kuma-db:
   api-db:
