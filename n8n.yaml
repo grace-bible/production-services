@@ -1,0 +1,29 @@
+---
+version: "3"
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    environment:
+      - N8N_HOST=n8n.tail5c441.ts.net
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.tail5c441.ts.net/
+      - GENERIC_TIMEZONE=America/Chicago
+      - N8N_USER_MANAGEMENT_DISABLED=true
+      - NODE_FUNCTION_ALLOW_EXTERNAL=html-to-notion
+    volumes:
+      - n8n-data:/home/node/.n8n
+    restart: always
+    depends_on:
+      - n8n-tailscale
+    network_mode: service:n8n-tailscale
+  n8n-tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:latest
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: n8n
+      TAILSCALE_SERVE_PORT: 5678
+    
+volumes:
+  n8n-data:
+    driver: local
