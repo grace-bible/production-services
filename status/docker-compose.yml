@@ -26,8 +26,13 @@ services:
     volumes:
       - api-db:/db
     restart: always
-    env_file:
-      - stack.env
+    environment:
+      - ${KUMA_USERNAME:?err}
+      - ${KUMA_PASSWORD:?err}
+      - ${ADMIN_PASSWORD:?err}
+      - ${KUMA_SERVER:?err}
+      - ${ACCESS_TOKEN_EXPIRE:?err}
+      - ${SECRET_KEY:?err}
     depends_on:
       - kuma
       - api-tailscale
