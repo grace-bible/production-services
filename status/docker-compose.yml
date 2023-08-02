@@ -21,30 +21,30 @@ services:
       TAILSCALE_FUNNEL: true
       TAILSCALE_SERVE_PORT: 3001
 
-  api:
-    image: medaziz11/uptimekuma_restapi:latest
-    volumes:
-      - api-db:/db
-    restart: always
-    environment:
-      - ${KUMA_USERNAME:?err}
-      - ${KUMA_PASSWORD:?err}
-      - ${ADMIN_PASSWORD:?err}
-      - ${KUMA_SERVER:?err}
-      - ${ACCESS_TOKEN_EXPIRE:?err}
-      - ${SECRET_KEY:?err}
-    depends_on:
-      - kuma
-      - api-tailscale
-    network_mode: service:api-tailscale
-  api-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v0.0.13
-    restart: always
-    environment:
-      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
-      TAILSCALE_HOSTNAME: kumaapi
-      TAILSCALE_SERVE_PORT: 8000
+#  api:
+#    image: medaziz11/uptimekuma_restapi:latest
+#    volumes:
+#      - api-db:/db
+#    restart: always
+#    environment:
+#      - ${KUMA_USERNAME:?err}
+#      - ${KUMA_PASSWORD:?err}
+#      - ${ADMIN_PASSWORD:?err}
+#      - ${KUMA_SERVER:?err}
+#      - ${ACCESS_TOKEN_EXPIRE:?err}
+#      - ${SECRET_KEY:?err}
+#    depends_on:
+#      - kuma
+#      - api-tailscale
+#    network_mode: service:api-tailscale
+#  api-tailscale:
+#    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v0.0.13
+#    restart: always
+#    environment:
+#      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+#      TAILSCALE_HOSTNAME: kumaapi
+#      TAILSCALE_SERVE_PORT: 8000
 
 volumes:
   kuma-db:
-  api-db:
+#  api-db:
