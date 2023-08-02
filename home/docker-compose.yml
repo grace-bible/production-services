@@ -2,7 +2,7 @@
 version: "3"
 services:
   homer:
-    image: b4bz/homer
+    image: b4bz/homer:latest
     volumes:
       - homer-data:/www/assets
     user: 1000:1000 # default
@@ -12,7 +12,7 @@ services:
     network_mode: service:homer-tailscale
     
   homer-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:latest
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v0.0.13
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
