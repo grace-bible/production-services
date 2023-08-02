@@ -6,7 +6,7 @@ services:
     environment:
       - TZ=America/Chicago
     volumes:
-      - ~/containers/uptime-kuma/data:/app/data
+      - /home/elliotmatson/containers/uptime-kuma/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
     depends_on:
