@@ -15,7 +15,7 @@ services:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:latest
     restart: always
     environment:
-      TAILSCALE_AUTH_KEY: ${TAILSCALE_AUTH_KEY:?err}
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: home
       TAILSCALE_SERVE_PORT: 8080
 
