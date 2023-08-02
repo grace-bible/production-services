@@ -18,6 +18,7 @@ services:
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: status
+      TAILSCALE_FUNNEL: true
       TAILSCALE_SERVE_PORT: 3001
 
   api:
