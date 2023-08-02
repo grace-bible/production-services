@@ -36,6 +36,7 @@ services:
     depends_on:
       - kuma
       - api-tailscale
+    network_mode: service:api-tailscale
   api-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v0.0.13
     restart: always
