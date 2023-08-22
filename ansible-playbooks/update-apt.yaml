@@ -1,0 +1,18 @@
+---
+- hosts: "{{ hosts }}"
+
+  become: yes
+  tasks:
+    - name: update apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+    - name: notify Google Chat if reboot required
+      when: ansible_reboot_required
+      uri:
+        url: '{{ google_chat_webhook }}'
+        method: POST
+        body: '{"text": "Reboot required on {{ inventory_hostname }}"}'
+        body_format: json
+        status_code: 200
+        validate_certs: no
