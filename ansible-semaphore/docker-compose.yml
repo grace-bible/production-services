@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     image: semaphoreui/semaphore:latest
     env_file:
-      - stack.env
+      - ../stack.env
     volumes:
       - config:/etc/semaphore # config.json location
       - db:/var/lib/semaphore # database.boltdb location (Not required if using mysql or postgres)
