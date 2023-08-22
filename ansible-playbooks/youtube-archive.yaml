@@ -23,6 +23,9 @@
           --file-access-retries 50 \
           --no-clean-info-json \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"
+        register: and_status
+        ignore_errors: true
+
       - name: download SW playlist with yt-dlp
         shell: |
           yt-dlp \
@@ -37,6 +40,9 @@
           --file-access-retries 50 \
           --no-clean-info-json \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxdLdfeabiqL4aMmj1qmZQhv"
+        register: sw_status
+        ignore_errors: true
+
       - name: download CRK playlist with yt-dlp
         shell: |
           yt-dlp \
@@ -51,6 +57,9 @@
           --file-access-retries 50 \
           --no-clean-info-json \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxedpjpydtd0R5TV2Wr-XQj3"
+        register: crk_status
+        ignore_errors: true
+
       - name: download MT playlist with yt-dlp
         shell: |
           yt-dlp \
@@ -65,3 +74,13 @@
           --file-access-retries 50 \
           --no-clean-info-json \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxcn2eaMMyS3w81u62JwYkTD"
+        register: mt_status
+        ignore_errors: true
+
+    - name: send shell command status to google Chat
+      uri:
+        url: '{{ google_chat_webhook }}'
+        method: POST
+        body: '{"text": "AND: {{ and_status.rc }} {{ and_status.stderr }}\nSW: {{ sw_status.rc }} {{ sw_status.stderr }}\nCRK: {{ crk_status.rc }} {{ crk_status.stderr }}\nMT: {{ mt_status.rc }} {{ crk_status.stderr }}"}'
+        body_format: json
+        status_code: 200
