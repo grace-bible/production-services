@@ -4,6 +4,7 @@
   serial: 1
   tasks:
       - name: update apt
+        become: yes
         apt:
           update_cache: yes
           name: youtube-dl
