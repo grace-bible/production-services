@@ -3,14 +3,17 @@ version: "3"
 
 services:
   semaphore:
-    restart: unless-stopped
     image: semaphoreui/semaphore:latest
     env_file:
       - ../stack.env
     volumes:
       - config:/etc/semaphore # config.json location
       - db:/var/lib/semaphore # database.boltdb location (Not required if using mysql or postgres)
-  kuma-tailscale:
+    restart: always
+    depends_on:
+      - tailscale
+    network_mode: service:tailscale
+  tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.46.1
     restart: always
     environment:
