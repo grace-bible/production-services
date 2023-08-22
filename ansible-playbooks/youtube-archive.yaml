@@ -7,7 +7,7 @@
         become: yes
         apt:
           update_cache: yes
-          name: youtube-dl
+          name: yt-dlp
           state: latest
       - name: download AND playlist with yt-dlp
         shell: |
