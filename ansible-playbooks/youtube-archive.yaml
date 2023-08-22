@@ -1,6 +1,6 @@
 ---
 # Ansible playbook to run shell script to archive YouTube playlists
-- hosts: yt-dlp
+- hosts: ytdlp
   serial: 1
   tasks:
       - name: update apt
