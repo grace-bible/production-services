@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ hosts }}"
+- hosts: debian_based
 
   become: yes
   tasks:
