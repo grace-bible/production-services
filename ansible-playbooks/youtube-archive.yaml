@@ -1,0 +1,66 @@
+---
+# Ansible playbook to run shell script to archive YouTube playlists
+- hosts: yt-dlp
+  serial: 1
+  tasks:
+      - name: update apt
+        apt:
+          update_cache: yes
+          name: youtube-dl
+          state: latest
+      - name: download AND playlist with yt-dlp
+        shell: |
+          yt-dlp \
+          -o "{{sermon_archive_path}}/AND/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+          --download-archive "{{sermon_archive_path}}/archive.txt" \
+          --write-info-json \
+          --merge-output-format mp4 \
+          --write-thumbnail \
+          --write-auto-sub \
+          --windows-filenames \
+          --retries 100 \
+          --file-access-retries 50 \
+          --no-clean-info-json \
+          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"
+      - name: download SW playlist with yt-dlp
+        shell: |
+          yt-dlp \
+          -o "{{sermon_archive_path}}/SW/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+          --download-archive "{{sermon_archive_path}}/archive.txt" \
+          --write-info-json \
+          --merge-output-format mp4 \
+          --write-thumbnail \
+          --write-auto-sub \
+          --windows-filenames \
+          --retries 100 \
+          --file-access-retries 50 \
+          --no-clean-info-json \
+          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxdLdfeabiqL4aMmj1qmZQhv"
+      - name: download CRK playlist with yt-dlp
+        shell: |
+          yt-dlp \
+          -o "{{sermon_archive_path}}/CRK/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+          --download-archive "{{sermon_archive_path}}/archive.txt" \
+          --write-info-json \
+          --merge-output-format mp4 \
+          --write-thumbnail \
+          --write-auto-sub \
+          --windows-filenames \
+          --retries 100 \
+          --file-access-retries 50 \
+          --no-clean-info-json \
+          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxedpjpydtd0R5TV2Wr-XQj3"
+      - name: download MT playlist with yt-dlp
+        shell: |
+          yt-dlp \
+          -o "{{sermon_archive_path}}/MT/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+          --download-archive "{{sermon_archive_path}}/archive.txt" \
+          --write-info-json \
+          --merge-output-format mp4 \
+          --write-thumbnail \
+          --write-auto-sub \
+          --windows-filenames \
+          --retries 100 \
+          --file-access-retries 50 \
+          --no-clean-info-json \
+          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxcn2eaMMyS3w81u62JwYkTD"
