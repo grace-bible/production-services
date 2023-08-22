@@ -7,12 +7,17 @@
       apt:
         upgrade: yes
         update_cache: yes
+    - name: check if reboot is required
+      become: true
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
     - name: notify Google Chat if reboot required
-      when: ansible_reboot_required
+      when: reboot_required.stat.exists
       uri:
         url: '{{ google_chat_webhook }}'
         method: POST
         body: '{"text": "Reboot required on {{ inventory_hostname }}"}'
         body_format: json
         status_code: 200
-        validate_certs: no
