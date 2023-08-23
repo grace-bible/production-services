@@ -79,7 +79,7 @@
 
       - name: send shell command status to google Chat
         uri:
-          url: '{{ google_chat_webhook }}'
+          url: '{{ google_chat_webhook_yt }}'
           method: POST
           #body: '{"text": "AND: {{ and_status.rc }} {{ and_status.stderr }}\nSW: {{ sw_status.rc }} {{ sw_status.stderr }}\nCRK: {{ crk_status.rc }} {{ crk_status.stderr }}\nMT: {{ mt_status.rc }} {{ crk_status.stderr }}"}'
           body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🤖 Y️outube Archive Bot","subtitle":"Run completed"},"sections":[{"header":"️🟡 AND 🟡 (Status Code: {{ and_status.rc }})","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ and_status.stderr }}"}}]},{"header":"️🟢 SW 🟢 (Status Code: {{ sw_status.rc }})","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ sw_status.stderr }}"}}]},{"header":"️🔵 CRK 🔵 (Status Code: {{ crk_status.rc }})","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ crk_status.stderr }}"}}]},{"header":"️🔴 MT 🔴 (Status Code: {{ mt_status.rc }})","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ mt_status.stderr }}"}}]}]}}]}'
