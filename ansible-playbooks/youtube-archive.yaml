@@ -81,6 +81,7 @@
         uri:
           url: '{{ google_chat_webhook }}'
           method: POST
-          body: '{"text": "AND: {{ and_status.rc }} {{ and_status.stderr }}\nSW: {{ sw_status.rc }} {{ sw_status.stderr }}\nCRK: {{ crk_status.rc }} {{ crk_status.stderr }}\nMT: {{ mt_status.rc }} {{ crk_status.stderr }}"}'
+          #body: '{"text": "AND: {{ and_status.rc }} {{ and_status.stderr }}\nSW: {{ sw_status.rc }} {{ sw_status.stderr }}\nCRK: {{ crk_status.rc }} {{ crk_status.stderr }}\nMT: {{ mt_status.rc }} {{ crk_status.stderr }}"}'
+          body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🤖 Y️outube Archive Bot","subtitle":"Run completed"},"sections":[{"header":{"title":"️🟡 AND 🟡","subtitle":"Status Code: {{ and_status.rc }}"},"collapsible":true,"widgets":[{"textParagraph":{"text":"{{ and_status.stdout }}"}}]},{"header":{"title":"️🟢 SW 🟢","subtitle":"Status Code: {{ sw_status.rc }}"},"collapsible":true,"widgets":[{"textParagraph":{"text":"{{ sw_status.stdout }}"}}]},{"header":{"title":"️🔵 CRK 🔵","subtitle":"Status Code: {{ crk_status.rc }}"},"collapsible":true,"widgets":[{"textParagraph":{"text":"{{ crk_status.stdout }}"}}]},{"header":{"title":"️🔴 MT 🔴","subtitle":"Status Code: {{ mt_status.rc }}"},"collapsible":true,"widgets":[{"textParagraph":{"text":"{{ and_status.stdout }}"}}]}]}}]}'
           body_format: json
           status_code: 200
