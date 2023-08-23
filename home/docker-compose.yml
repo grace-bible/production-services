@@ -16,10 +16,8 @@ services:
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
-      TAILSCALE_HOSTNAME: homer
+      TAILSCALE_HOSTNAME: home
       TAILSCALE_SERVE_PORT: 8080
-    volumes:
-      - tailscale:/var/lib/tailscale_state
 
 volumes:
   homer-data:
