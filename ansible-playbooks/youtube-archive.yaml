@@ -22,7 +22,7 @@
           --retries 100 \
           --file-access-retries 50 \
           --no-clean-info-json \
-          --print after_video:"%(playlist_title)s/%(upload_date)s - %(title)s" \
+          --print after_video:"  - %(title)s" \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"
         register: and_status
         ignore_errors: true
@@ -40,6 +40,7 @@
           --retries 100 \
           --file-access-retries 50 \
           --no-clean-info-json \
+          --print after_video:"  - %(title)s" \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxdLdfeabiqL4aMmj1qmZQhv"
         register: sw_status
         ignore_errors: true
@@ -57,6 +58,7 @@
           --retries 100 \
           --file-access-retries 50 \
           --no-clean-info-json \
+          --print after_video:"  - %(title)s" \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxedpjpydtd0R5TV2Wr-XQj3"
         register: crk_status
         ignore_errors: true
@@ -74,6 +76,7 @@
           --retries 100 \
           --file-access-retries 50 \
           --no-clean-info-json \
+          --print after_video:"  - %(title)s" \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxcn2eaMMyS3w81u62JwYkTD"
         register: mt_status
         ignore_errors: true
@@ -82,6 +85,6 @@
         uri:
           url: '{{ google_chat_webhook_yt }}'
           method: POST
-          body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🤖 Y️outube Archive Bot","subtitle":"Run completed"},"sections":[{"header":"️🟡 AND 🟡 {{ "(Success!)" if and_status.rc == 0 else "(Status Code: " ~ and_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ and_status.stdout }}"}}]},{"header":"️🟢 SW 🟢 {{ "(Success!)" if sw_status.rc == 0 else "(Status Code: " ~ sw_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ sw_status.stderr }}"}}]},{"header":"️🔵 CRK 🔵 {{ "(Success!)" if crk_status.rc == 0 else "(Status Code: " ~ crk_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ crk_status.stderr }}"}}]},{"header":"️🔴 MT 🔴 {{ "(Success!)" if mt_status.rc == 0 else "(Status Code: " ~ mt_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ mt_status.stderr }}"}}]}]}}]}'
+          body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🤖 Y️outube Archive Bot","subtitle":"Run completed"},"sections":[{"header":"️🟡 AND 🟡 {{ "(Success!)" if and_status.rc == 0 else "(Status Code: " ~ and_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ and_status.stdout }}"}}]},{"header":"️🟢 SW 🟢 {{ "(Success!)" if sw_status.rc == 0 else "(Status Code: " ~ sw_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ sw_status.stdout }}"}}]},{"header":"️🔵 CRK 🔵 {{ "(Success!)" if crk_status.rc == 0 else "(Status Code: " ~ crk_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ crk_status.stdout }}"}}]},{"header":"️🔴 MT 🔴 {{ "(Success!)" if mt_status.rc == 0 else "(Status Code: " ~ mt_status.rc ~ ")" }}","collapsible":true,"widgets":[{"textParagraph":{"text":"{{ mt_status.stdout }}"}}]}]}}]}'
           body_format: json
           status_code: 200
