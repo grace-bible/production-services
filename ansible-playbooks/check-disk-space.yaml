@@ -1,0 +1,24 @@
+---
+- name: check disk space
+  hosts: ubuntu
+  tasks:
+    - name: get disk usage
+      command: df -h
+      register: disk_usage
+    - name: check disk space available
+      shell: df -h / | awk 'NR==2 {print $5}'
+      register: disk_usage.stdout
+      
+    - name: send message when disk space is over 80%
+      uri:
+        url: '{{ google_chat_webhook_dev }}'
+        method: POST
+        body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"💽💽 Disk space alert! 💽💽","subtitle":"Disk space on {{ inventory_hostname }} is above 80%! ({{ disk_usage.stdout }})"}}}]}'
+        body_format: json
+        status_code: 200
+      when: disk_usage.stdout[:-1]|int > 80
+
+
+
+
+      
