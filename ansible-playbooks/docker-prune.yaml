@@ -2,9 +2,11 @@
 - name: clean docker
   hosts: docker
   tasks:
-    - name: Install python docker package
-      pip:
-        name: docker
+    - name: Install python3-docker
+      apt:
+        name: python3-docker
+        state: present
+        update_cache: yes
     - name: prune non-dangling images
       community.docker.docker_prune:
         containers: false
