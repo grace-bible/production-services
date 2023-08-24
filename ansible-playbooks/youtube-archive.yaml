@@ -9,6 +9,7 @@
           update_cache: yes
           name: yt-dlp
           state: latest
+          
       - name: download AND playlist with yt-dlp
         shell: |
           yt-dlp \

@@ -7,6 +7,7 @@
       apt:
         upgrade: yes
         update_cache: yes
+        
     - name: check if reboot is required
       become: true
       stat:

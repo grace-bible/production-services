@@ -2,13 +2,10 @@
 - name: check disk space
   hosts: ubuntu
   tasks:
-    - name: get disk usage
-      command: df -h
-      register: disk_usage
     - name: check disk space available
       shell: df -h / | awk 'NR==2 {print $5}'
-      register: disk_usage.stdout
-      
+      register: disk_usage
+
     - name: send message when disk space is over 80%
       uri:
         url: '{{ google_chat_webhook_dev }}'
