@@ -3,8 +3,8 @@
   hosts: docker
   tasks:
     - name: Install python3-docker
+      become: yes
       apt:
-        become: yes
         name: python3-docker
         state: present
         update_cache: yes
