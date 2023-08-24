@@ -2,6 +2,9 @@
 - name: clean docker
   hosts: docker
   tasks:
+    - name: Install python docker package
+      pip:
+        name: docker
     - name: prune non-dangling images
       community.docker.docker_prune:
         containers: false
