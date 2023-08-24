@@ -9,11 +9,12 @@
         state: present
         update_cache: yes
     - name: prune non-dangling images
+      become: yes
       community.docker.docker_prune:
         containers: false
         images: true
         images_filters:
           dangling: false
-        networks: false
-        volumes: false
+        networks: true
+        volumes: true
         builder_cache: false
