@@ -20,6 +20,7 @@ services:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: semaphore
       TAILSCALE_SERVE_PORT: 3000
+      TZ: America/Chicago
       
 volumes:
   db:
