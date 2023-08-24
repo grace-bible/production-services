@@ -13,7 +13,7 @@
         body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"💽💽 Disk space alert! 💽💽","subtitle":"Disk space on {{ inventory_hostname }} is above 80%! ({{ disk_usage.stdout }})"}}}]}'
         body_format: json
         status_code: 200
-      when: disk_usage.stdout[:-1]|int > 39
+      when: disk_usage.stdout[:-1]|int > 80
 
 
 
