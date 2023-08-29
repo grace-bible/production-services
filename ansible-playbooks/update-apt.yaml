@@ -20,6 +20,5 @@
         url: '{{ google_chat_webhook_dev }}'
         method: POST
         body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🔃🔃 Reboot Needed! 🔃🔃 ","subtitle":"Reboot required on {{ inventory_hostname }}"}}}]}'
-        body: '{"text": "Reboot required on {{ inventory_hostname }}"}'
         body_format: json
         status_code: 200
