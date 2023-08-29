@@ -9,11 +9,6 @@
   },
   "packageRules": [
     {
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns": ["lint", "prettier"],
-      "automerge": true
-    },
-    {
       "matchUpdateTypes": ["patch", "pin", "digest"],
       "automerge": true
     }
