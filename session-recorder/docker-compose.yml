@@ -5,7 +5,7 @@ services:
             - TS_AUTHKEY=$TS_AUTHKEY
         volumes:
             - tsrecorder:/data
-        image: tailscale/tsrecorder:stable
+        image: tailscale/tsrecorder:v1.40.1
         restart: unless-stopped
         command:
           - /tsrecorder
