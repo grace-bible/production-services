@@ -3,7 +3,7 @@ version: "3"
 
 services:
   semaphore:
-    image: semaphoreui/semaphore:v2.9.0
+    image: semaphoreui/semaphore:v2.9.2
     env_file:
       - ../stack.env
     volumes:
