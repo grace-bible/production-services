@@ -4,10 +4,12 @@ services:
         environment:
             - TS_AUTHKEY=$TS_AUTHKEY
         volumes:
-            - 'tsrecorder:/data'
+            - tsrecorder_state:/data/state
+            - tsrecorder_recordings:/data/recordings
         image: tailscale/tsrecorder:stable
         restart: unless-stopped
         command: "--dst=/data/recordings --statedir=/data/state --hostname=session-recorder --ui"
 
 volumes:
-    tsrecorder:
+    tsrecorder_recordings:
+    tsrecorder_state:
