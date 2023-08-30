@@ -8,6 +8,7 @@ services:
         image: tailscale/tsrecorder:stable
         restart: unless-stopped
         command:
+          - /tsrecorder
           - --dst=/data/recordings
           - --statedir=/data/state 
           - --hostname=session-recorder
