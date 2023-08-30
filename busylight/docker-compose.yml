@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    busylight-docker:
+        devices:
+            - /dev/bus
+        image: ghcr.io/elliotmatson/busylight-docker:v0.26.1
+        restart: always
+        depends_on:
+          - tailscale
+        network_mode: service:tailscale
+    tailscale:
+        image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.48.1
+        restart: always
+        environment:
+            TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+            TAILSCALE_HOSTNAME: busylight
+            TAILSCALE_SERVE_PORT: 8000
+            TZ: America/Chicago
