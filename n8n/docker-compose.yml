@@ -24,6 +24,13 @@ services:
       TAILSCALE_HOSTNAME: n8n
       TAILSCALE_FUNNEL: true
       TAILSCALE_SERVE_PORT: 5678
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_MODE: https
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-state:/var/lib/tailscale
     
 volumes:
   n8n-data:
+  tailscale-state:

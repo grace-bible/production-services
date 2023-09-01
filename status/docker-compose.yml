@@ -16,10 +16,16 @@ services:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.48.1
     restart: always
     environment:
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_MODE: https
+      TAILSCALE_SERVE_SOURCE_MODE: http
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: status
       TAILSCALE_FUNNEL: true
       TAILSCALE_SERVE_PORT: 3001
+    volumes:
+      - tailscale-state:/var/lib/tailscale
 
 #  api:
 #    image: medaziz11/uptimekuma_restapi:latest
@@ -47,4 +53,6 @@ services:
 
 volumes:
   kuma-db:
+  tailscale-state:
 #  api-db:
+
