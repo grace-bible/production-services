@@ -3,29 +3,14 @@ version: "3"
 
 services:
   semaphore:
-    image: semaphoreui/semaphore:v2.9.4@sha256:6ca03d6bd58f3c59d798fe8bc56e47865fbe9930d0c0f38f9edbdd24087a6ace
+    image: ghcr.io/elliotmatson/ansible-semaphore-ts:v2.9.4
     env_file:
       - ../stack.env
     volumes:
       - config:/etc/semaphore # config.json location
       - db:/var/lib/semaphore # database.boltdb location (Not required if using mysql or postgres)
-    restart: always
-    depends_on:
-      - tailscale
-    network_mode: service:tailscale
-  tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.48.2
-    restart: always
-    environment:
-      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
-      TAILSCALE_HOSTNAME: semaphore
-      TAILSCALE_SERVE_PORT: 3000
-      TAILSCALE_SSH: true
-      TAILSCALE_STATE_DIR: /var/lib/tailscale
-      TAILSCALE_SERVE_MODE: https
-      TAILSCALE_SERVE_SOURCE_MODE: http
-    volumes:
       - tailscale-state:/var/lib/tailscale
+    restart: always
       
 volumes:
   db:
