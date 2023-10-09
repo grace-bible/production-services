@@ -8,6 +8,10 @@ services:
         depends_on:
           - tailscale
         network_mode: service:tailscale
+        deploy:
+          resources:
+            limits:
+              cpus: "0.25"
     tailscale:
         image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.48.1
         restart: always
