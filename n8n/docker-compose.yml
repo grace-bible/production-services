@@ -2,7 +2,7 @@
 version: "3"
 services:
   n8n:
-    image: n8nio/n8n:1.3.1
+    image: n8nio/n8n:1.8.2
     environment:
       - N8N_HOST=n8n.tail5c441.ts.net
       - N8N_PROTOCOL=https
@@ -17,13 +17,20 @@ services:
     network_mode: service:tailscale
     
   tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.48.1
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.50.1
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: n8n
       TAILSCALE_FUNNEL: true
       TAILSCALE_SERVE_PORT: 5678
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_MODE: https
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-state:/var/lib/tailscale
     
 volumes:
   n8n-data:
+  tailscale-state:
