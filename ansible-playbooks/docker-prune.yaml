@@ -3,6 +3,7 @@
   hosts: docker
   tasks:
     - name: Install python3-docker
+      remote_user: ansible
       become: yes
       apt:
         name: python3-docker
@@ -10,6 +11,7 @@
         update_cache: yes
         
     - name: prune non-dangling images
+      remote_user: ansible
       become: yes
       community.docker.docker_prune:
         containers: false
