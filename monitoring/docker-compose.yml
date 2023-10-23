@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana-oss:10.1.5
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    network_mode: service:tailscale-grafana
+    
+  tailscale-grafana:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.50.1-002
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: grafana
+      TAILSCALE_FUNNEL: false
+      TAILSCALE_SERVE_PORT: 3000
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_MODE: https
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-grafana-state:/var/lib/tailscale
+    
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - prometheus-config:/etc/prometheus
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    network_mode: service:tailscale-prometheus
+    
+  tailscale-prometheus:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.50.1-002
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: prometheus
+      TAILSCALE_FUNNEL: false
+      TAILSCALE_SERVE_PORT: 9090
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_MODE: https
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-prometheus-state:/var/lib/tailscale
+      
+  cadvisor:
+    # latest tag is not updated, check latest release https://github.com/google/cadvisor/releases 
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /dev/disk/:/dev/disk:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    devices:
+      - /dev/kmsg
+    restart: unless-stopped
+    privileged: true
+
+  pve:
+    image: prompve/prometheus-pve-exporter:v2.3.1
+    restart: always
+    environment:
+      PVE_USER: ${PVE_USER:?err}
+      PVE_TOKEN_NAME: ${PVE_TOKEN_NAME:?err}
+      PVE_TOKEN_VALUE: ${PVE_TOKEN_VALUE:?err}
+      PVE_VERIFY_SSL: false
+
+volumes:
+  prometheus-data:
+  prometheus-config:
+  grafana-data:
+  tailscale-grafana-state:
+  tailscale-prometheus-state:
