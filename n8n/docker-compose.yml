@@ -2,7 +2,7 @@
 version: "3"
 services:
   n8n:
-    image: n8nio/n8n:1.11.2
+    image: n8nio/n8n:1.9.3
     environment:
       - N8N_HOST=n8n.tail5c441.ts.net
       - N8N_PROTOCOL=https
@@ -10,6 +10,8 @@ services:
       - GENERIC_TIMEZONE=America/Chicago
       - NODE_FUNCTION_ALLOW_EXTERNAL=html-to-notion
       - N8N_METRICS=true
+      - N8N_METRICS_INCLUDE_MESSAGE_EVENT_BUS_METRICS=true
+      - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABEL=true
     volumes:
       - n8n-data:/home/node/.n8n
     restart: always
