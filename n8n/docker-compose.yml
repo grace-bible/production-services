@@ -9,6 +9,7 @@ services:
       - WEBHOOK_URL=https://n8n.tail5c441.ts.net/
       - GENERIC_TIMEZONE=America/Chicago
       - NODE_FUNCTION_ALLOW_EXTERNAL=html-to-notion
+      - N8N_METRICS=true
     volumes:
       - n8n-data:/home/node/.n8n
     restart: always
