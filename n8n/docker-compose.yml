@@ -12,6 +12,8 @@ services:
       - N8N_METRICS=true
       - N8N_METRICS_INCLUDE_MESSAGE_EVENT_BUS_METRICS=true
       - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABEL=true
+      - N8N_METRICS_INCLUDE_NODE_TYPE_LABEL=true
+      - N8N_METRICS_INCLUDE_CREDENTIAL_TYPE_LABEL=true
     volumes:
       - n8n-data:/home/node/.n8n
     restart: always
