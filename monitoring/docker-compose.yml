@@ -6,6 +6,20 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
     restart: unless-stopped
+    environment:
+      GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL:?err}
+      GF_AUTH_GOOGLE_ENABLED: "true"
+      GF_AUTH_GOOGLE_ALLOW_SIGN_UP: "true"
+      GF_AUTH_GOOGLE_AUTO_LOGIN: "true"
+      GF_AUTH_GOOGLE_CLIENT_ID: ${GF_AUTH_GOOGLE_CLIENT_ID:?err}
+      GF_AUTH_GOOGLE_CLIENT_SECRET: ${GF_AUTH_GOOGLE_CLIENT_SECRET:?err}
+      GF_AUTH_GOOGLE_SCOPES: "openid email profile"
+      GF_AUTH_GOOGLE_AUTH_URL: "https://accounts.google.com/o/oauth2/auth"
+      GF_AUTH_GOOGLE_TOKEN_URL: "https://oauth2.googleapis.com/token"
+      GF_AUTH_GOOGLE_API_URL: "https://openidconnect.googleapis.com/v1/userinfo"
+      GF_AUTH_GOOGLE_ALLOWED_DOMAINS: ${GF_AUTH_GOOGLE_ALLOWED_DOMAINS:?err}
+      GF_AUTH_GOOGLE_HOSTED_DOMAIN: ${GF_AUTH_GOOGLE_HOSTED_DOMAIN:?err}
+      GF_AUTH_GOOGLE_USE_PKCE: "true"
     network_mode: service:tailscale-grafana
     
   tailscale-grafana:
