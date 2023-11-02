@@ -13,12 +13,11 @@ services:
       - kuma-tailscale
     network_mode: service:kuma-tailscale
   kuma-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:v1.50.1-002
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.52.0
     restart: always
     environment:
       TAILSCALE_SSH: true
       TAILSCALE_STATE_DIR: /var/lib/tailscale
-      TAILSCALE_SERVE_MODE: https
       TAILSCALE_SERVE_SOURCE_MODE: http
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: status

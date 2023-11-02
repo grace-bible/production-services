@@ -32,7 +32,6 @@ services:
       TAILSCALE_SERVE_PORT: 3000
       TAILSCALE_SSH: true
       TAILSCALE_STATE_DIR: /var/lib/tailscale
-      TAILSCALE_SERVE_MODE: https
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-grafana-state:/var/lib/tailscale
@@ -57,7 +56,6 @@ services:
       TAILSCALE_SERVE_PORT: 9090
       TAILSCALE_SSH: true
       TAILSCALE_STATE_DIR: /var/lib/tailscale
-      TAILSCALE_SERVE_MODE: https
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-prometheus-state:/var/lib/tailscale
