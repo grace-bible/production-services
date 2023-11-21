@@ -3,7 +3,7 @@ version: "3"
 
 services:
   semaphore:
-    image: ghcr.io/elliotmatson/ansible-semaphore-ts:v2.9.37_003
+    image: ghcr.io/elliotmatson/ansible-semaphore-ts:v2.9.37_004
     env_file:
       - ../stack.env
     volumes:
