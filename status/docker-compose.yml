@@ -2,7 +2,7 @@
 version: "3"
 services:
   kuma:
-    image: louislam/uptime-kuma:1.23.10
+    image: louislam/uptime-kuma:1.23.11
     environment:
       - TZ=America/Chicago
     volumes:
