@@ -16,7 +16,7 @@ services:
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: companion
-      TAILSCALE_SERVE_PORT: 8888
+      TAILSCALE_SERVE_PORT: 8000
       TAILSCALE_SSH: false
       TAILSCALE_STATE_DIR: /var/lib/tailscale
       TAILSCALE_SERVE_SOURCE_MODE: http
