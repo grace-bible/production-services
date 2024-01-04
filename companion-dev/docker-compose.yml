@@ -1,0 +1,28 @@
+---
+version: "3"
+services:
+  companion:
+    image: ghcr.io/bitfocus/companion/companion:beta
+    volumes:
+      - companion-data:/companion
+    restart: always
+    depends_on:
+      - companion-tailscale
+    network_mode: service:companion-tailscale
+    
+  companion-tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.56.1
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: companion
+      TAILSCALE_SERVE_PORT: 8888
+      TAILSCALE_SSH: false
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+
+volumes:
+  companion-data:
+  tailscale-state:
