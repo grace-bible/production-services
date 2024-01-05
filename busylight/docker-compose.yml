@@ -11,7 +11,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.25"
+          cpus: "0.15"
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.56.1
     restart: always
