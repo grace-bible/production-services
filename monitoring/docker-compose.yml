@@ -73,7 +73,7 @@ services:
     privileged: true
 
   pve:
-    image: prompve/prometheus-pve-exporter:3.1.0
+    image: prompve/prometheus-pve-exporter:3.2.1
     restart: always
     environment:
       PVE_USER: ${PVE_USER:?err}
