@@ -13,7 +13,7 @@
       "automerge": true
     },
     {
-      "matchPackageNames": ["n8nio/n8n"],
+      "matchPackageNames": ["ghcr.io/n8n-io/n8n"],
       "followTag": "latest"
     }
   ]
