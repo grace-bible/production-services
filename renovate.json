@@ -11,6 +11,11 @@
     {
       "matchUpdateTypes": ["patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "matchPackageNames": ["n8n"],
+      "followTag": "latest"
     }
+  ]
   ]
 }
