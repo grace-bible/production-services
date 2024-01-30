@@ -13,7 +13,7 @@
       "automerge": true
     },
     {
-      "matchPackageNames": ["n8n"],
+      "matchPackageNames": ["n8nio/n8n"],
       "followTag": "latest"
     }
   ]
