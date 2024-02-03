@@ -11,7 +11,7 @@ services:
     network_mode: service:companion-tailscale
     
   companion-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.56.1
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.58.2
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
