@@ -13,7 +13,7 @@ services:
         limits:
           cpus: "0.15"
   tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.61.11
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.0
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}

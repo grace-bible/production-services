@@ -23,7 +23,7 @@ services:
     network_mode: service:tailscale-grafana
     
   tailscale-grafana:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.61.11
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.0
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -46,7 +46,7 @@ services:
     network_mode: service:tailscale-prometheus
     
   tailscale-prometheus:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.61.11
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.0
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
