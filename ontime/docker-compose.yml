@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  ontime:
+    container_name: ontime
+    image: getontime/ontime:latest
+    #ports:
+    #  - "8888:8888/udp"
+    #  - "9999:9999/udp"
+    volumes:
+      - "ontime-db:/external/db/"
+      - "ontime-styles:/external/styles/"
+    environment:
+      - TZ=Asia/Singapore
+    restart: unless-stopped
+    depends_on:
+      - tailscale
+    network_mode: service:tailscale
+    
+  tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.61.11
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: ontime
+      TAILSCALE_FUNNEL: false
+      TAILSCALE_SERVE_PORT: 4001
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+    
+volumes:
+  ontime-db:
+  ontime-styles:
+  tailscale-state:
