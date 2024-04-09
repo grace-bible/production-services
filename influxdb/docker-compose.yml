@@ -9,6 +9,10 @@ services:
     depends_on:
       - tailscale
     network_mode: service:tailscale
+    healthcheck:
+      test: ["CMD", "curl", "influxdb:8086/api/v2/ping"]
+      interval: 30s
+      retries: 3
     
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.1

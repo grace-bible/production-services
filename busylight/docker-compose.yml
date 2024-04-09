@@ -12,6 +12,10 @@ services:
       resources:
         limits:
           cpus: "0.15"
+    healthcheck:
+      test: ["CMD", "curl", "busylight-docker:8000/"]
+      interval: 30s
+      retries: 3
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.1
     restart: always
