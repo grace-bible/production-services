@@ -21,6 +21,11 @@ services:
       GF_AUTH_GOOGLE_HOSTED_DOMAIN: ${GF_AUTH_GOOGLE_HOSTED_DOMAIN:?err}
       GF_AUTH_GOOGLE_USE_PKCE: "true"
     network_mode: service:tailscale-grafana
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     
   tailscale-grafana:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.1
@@ -44,6 +49,11 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     network_mode: service:tailscale-prometheus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     
   tailscale-prometheus:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.62.1
@@ -80,6 +90,11 @@ services:
       PVE_TOKEN_NAME: ${PVE_TOKEN_NAME:?err}
       PVE_TOKEN_VALUE: ${PVE_TOKEN_VALUE:?err}
       PVE_VERIFY_SSL: false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9221/metrics"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   prometheus-data:
