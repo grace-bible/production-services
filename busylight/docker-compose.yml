@@ -13,7 +13,7 @@ services:
         limits:
           cpus: "0.15"
     healthcheck:
-      test: ["CMD", "curl", "busylight-docker:8000/"]
+      test: ["CMD", "curl", "busylight:8000/"]
       interval: 30s
       retries: 3
   tailscale:
