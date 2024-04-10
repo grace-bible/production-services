@@ -21,7 +21,7 @@ services:
       - tailscale
     network_mode: service:tailscale
     healthcheck:
-      test: ["CMD-SHELL", "/usr/bin/wget --server-response --proxy off --no-verbose --tries=1 --timeout=3 n8n:5678/healthz -O /dev/null 2>&1 | grep -q 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "/usr/bin/wget --server-response --proxy off --no-verbose --tries=1 --timeout=3 127.0.0.1:5678/healthz -O /dev/null 2>&1 | grep -q 'HTTP/1.1 200 OK'"]
       interval: 30s
       retries: 3
     
