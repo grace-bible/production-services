@@ -4,7 +4,7 @@ services:
     devices:
       - /dev/bus
     image: ghcr.io/elliotmatson/busylight-docker:v0.26.1
-    restart: always
+    restart: on-failure
     depends_on:
       - tailscale
     network_mode: service:tailscale
@@ -18,7 +18,7 @@ services:
       retries: 3
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.64.2
-    restart: always
+    restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: busylight

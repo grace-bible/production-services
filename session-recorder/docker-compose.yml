@@ -6,7 +6,7 @@ services:
         volumes:
             - tsrecorder:/data
         image: tailscale/tsrecorder:stable-v1.54
-        restart: unless-stopped
+        restart: on-failure
         command:
           - /tsrecorder
           - --dst=/data/recordings

@@ -11,15 +11,15 @@ services:
       - "ontime-db:/external/db/"
       - "ontime-styles:/external/styles/"
     environment:
-      - TZ=Asia/Singapore
-    restart: unless-stopped
+      - TZ=Americas/Chicago
+    restart: on-failure
     depends_on:
       - tailscale
     network_mode: service:tailscale
     
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.64.2
-    restart: always
+    restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: ontime

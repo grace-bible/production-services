@@ -5,14 +5,14 @@ services:
     image: ghcr.io/bitfocus/companion/companion:beta
     volumes:
       - companion-data:/companion
-    restart: always
+    restart: on-failure
     depends_on:
       - companion-tailscale
     network_mode: service:companion-tailscale
     
   companion-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.64.2
-    restart: always
+    restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: companion
