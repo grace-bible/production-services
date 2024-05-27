@@ -14,6 +14,7 @@ services:
       - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABEL=true
       - N8N_METRICS_INCLUDE_NODE_TYPE_LABEL=true
       - N8N_METRICS_INCLUDE_CREDENTIAL_TYPE_LABEL=true
+      - DB_SQLITE_VACUUM_ON_STARTUP=true
     volumes:
       - n8n-data:/home/node/.n8n
     restart: on-failure
