@@ -3,7 +3,7 @@ services:
   busylight-docker:
     devices:
       - /dev/bus
-    image: ghcr.io/elliotmatson/busylight-docker:v0.26.1
+    image: ghcr.io/elliotmatson/busylight-docker:v0.26.2
     restart: on-failure
     depends_on:
       - tailscale
