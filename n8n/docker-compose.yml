@@ -17,7 +17,7 @@ services:
       - DB_SQLITE_VACUUM_ON_STARTUP=true
     volumes:
       - n8n-data:/home/node/.n8n
-    restart: on-failure
+    restart: always
     depends_on:
       - tailscale
     network_mode: service:tailscale
@@ -28,7 +28,7 @@ services:
     
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.66.4
-    restart: on-failure
+    restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: n8n
