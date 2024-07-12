@@ -2,7 +2,7 @@ version: '3'
 
 services:
   influxdb:
-    image: influxdb:2.7.6
+    image: influxdb:2.7.7
     volumes:
       - influxdb-data:/var/lib/influxdb2:rw
     restart: on-failure
