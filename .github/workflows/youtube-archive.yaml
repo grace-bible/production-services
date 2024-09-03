@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
     
     - name: Tailscale
       uses: tailscale/github-action@v2
@@ -19,6 +17,7 @@ jobs:
         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:github-actions
+        version: 1.72.1
 
     - name: Install yt-dlp
       run: ssh -o StrictHostKeyChecking=no production 'sudo apt-get update && sudo apt-get install -y yt-dlp'
