@@ -1,0 +1,61 @@
+name: YouTube Archive
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+
+    - name: Install yt-dlp
+      run: ssh -o StrictHostKeyChecking=no production 'sudo apt-get update && sudo apt-get install -y yt-dlp'
+
+    - name: Download AND playlist with yt-dlp
+      run: |
+        ssh -o StrictHostKeyChecking=no production 'yt-dlp \
+        -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+        --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
+        --write-info-json \
+        --merge-output-format mp4 \
+        --write-thumbnail \
+        --write-auto-sub \
+        --windows-filenames \
+        --retries 100 \
+        --file-access-retries 50 \
+        --no-clean-info-json \
+        --print after_video:"  - %(title)s" \
+        "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"'
+      continue-on-error: true
+      id: and_status
+    
+    - name: Send status to Google Chat
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "cardsV2": [{
+            "cardId": "ticket",
+            "card": {
+              "header": {
+                "title": "🤖 Y️outube Archive Bot",
+                "subtitle": "Run completed"
+              },
+              "sections": [
+                {
+                  "header": "️🟡 AND 🟡 ${{ steps.and_status.outcome }}",
+                  "widgets": [{"textParagraph": {"text": "${{ steps.and_status.outputs.stdout }}"}}]
+                }
+              ]
+            }
+          }]
+        }' ${{ secrets.GOOGLE_CHAT_WEBHOOK_YT }}
