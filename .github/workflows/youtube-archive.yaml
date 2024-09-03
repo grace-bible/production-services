@@ -2,7 +2,7 @@ name: YouTube Archive
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight
+    - cron: '0 2 * * 2'
   workflow_dispatch:
 
 jobs:
@@ -96,7 +96,6 @@ jobs:
       id: mt_status
     
     - name: Send status to Google Chat
-      if: steps.and_status.outputs.stdout != '' || steps.sw_status.outputs.stdout != '' || steps.crk_status.outputs.stdout != '' || steps.mt_status.outputs.stdout != ''
       run: |
         curl -X POST -H "Content-Type: application/json" -d '{
           "cardsV2": [{
