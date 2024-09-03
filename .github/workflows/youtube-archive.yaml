@@ -18,6 +18,7 @@ jobs:
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:github-actions
         version: 1.72.1
+        args: --ssh
 
     - name: Install yt-dlp
       run: ssh -o StrictHostKeyChecking=no production 'sudo apt-get update && sudo apt-get install -y yt-dlp'
