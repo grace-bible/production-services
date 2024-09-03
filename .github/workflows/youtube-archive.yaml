@@ -59,4 +59,4 @@ jobs:
               ]
             }
           }]
-        }' ${{ secrets.GOOGLE_CHAT_WEBHOOK_YT }}
+        }' '${{ secrets.GOOGLE_CHAT_WEBHOOK_YT }}'
