@@ -1,0 +1,128 @@
+name: YouTube Archive
+
+on:
+  schedule:
+    - cron: '0 2 * * 2'
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:github-actions
+        version: 1.72.1
+        args: --ssh
+
+    - name: Install yt-dlp
+      run: ssh -o StrictHostKeyChecking=no root@production 'sudo apt-get update && sudo apt-get install -y yt-dlp'
+
+    - name: Download AND playlist with yt-dlp
+      run: |
+        ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+        -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+        --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
+        --write-info-json \
+        --merge-output-format mp4 \
+        --write-thumbnail \
+        --write-auto-sub \
+        --windows-filenames \
+        --retries 100 \
+        --file-access-retries 50 \
+        --no-clean-info-json \
+        --print after_video:"  - %(title)s" \
+        "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"'
+      continue-on-error: true
+      id: and_status
+
+    - name: Download SW playlist with yt-dlp
+      run: |
+        ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+        -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+        --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
+        --write-info-json \
+        --merge-output-format mp4 \
+        --write-thumbnail \
+        --write-auto-sub \
+        --windows-filenames \
+        --retries 100 \
+        --file-access-retries 50 \
+        --no-clean-info-json \
+        --print after_video:"  - %(title)s" \
+        "https://www.youtube.com/playlist?list=PLbQ39sgTWJxdLdfeabiqL4aMmj1qmZQhv"'
+      continue-on-error: true
+      id: sw_status
+
+    - name: Download CRK playlist with yt-dlp
+      run: |
+        ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+        -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+        --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
+        --write-info-json \
+        --merge-output-format mp4 \
+        --write-thumbnail \
+        --write-auto-sub \
+        --windows-filenames \
+        --retries 100 \
+        --file-access-retries 50 \
+        --no-clean-info-json \
+        --print after_video:"  - %(title)s" \
+        "https://www.youtube.com/playlist?list=PLbQ39sgTWJxedpjpydtd0R5TV2Wr-XQj3"'
+      continue-on-error: true
+      id: crk_status
+
+    - name: Download MT playlist with yt-dlp
+      run: |
+        ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+        -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
+        --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
+        --write-info-json \
+        --merge-output-format mp4 \
+        --write-thumbnail \
+        --write-auto-sub \
+        --windows-filenames \
+        --retries 100 \
+        --file-access-retries 50 \
+        --no-clean-info-json \
+        --print after_video:"  - %(title)s" \
+        "https://www.youtube.com/playlist?list=PLbQ39sgTWJxcn2eaMMyS3w81u62JwYkTD"'
+      continue-on-error: true
+      id: mt_status
+    
+    - name: Send status to Google Chat
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "cardsV2": [{
+            "cardId": "ticket",
+            "card": {
+              "header": {
+                "title": "🤖 Y️outube Archive Bot",
+                "subtitle": "Run completed"
+              },
+              "sections": [
+                {
+                  "header": "️🟡 AND 🟡 ${{ steps.and_status.outcome }}",
+                  "widgets": [{"textParagraph": {"text": "${{ steps.and_status.outputs.stdout }}"}}]
+                },
+                {
+                  "header": "️🟢 SW 🟢 ${{ steps.sw_status.outcome }}",
+                  "widgets": [{"textParagraph": {"text": "${{ steps.sw_status.outputs.stdout }}"}}]
+                },
+                {
+                  "header": "️🔵 CRK 🔵 ${{ steps.crk_status.outcome }}",
+                  "widgets": [{"textParagraph": {"text": "${{ steps.crk_status.outputs.stdout }}"}}]
+                },
+                {
+                  "header": "️🔴 MT 🔴 ${{ steps.mt_status.outcome }}",
+                  "widgets": [{"textParagraph": {"text": "${{ steps.mt_status.outputs.stdout }}"}}]
+                }
+              ]
+            }
+          }]
+        }' '${{ secrets.GOOGLE_CHAT_WEBHOOK_YT }}'
