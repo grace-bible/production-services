@@ -11,7 +11,7 @@ services:
       - db:/var/lib/semaphore # database.boltdb location (Not required if using mysql or postgres)
       - tailscale-state:/var/lib/tailscale
     restart: on-failure
-      
+
 volumes:
   db:
   config:

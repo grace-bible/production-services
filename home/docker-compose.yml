@@ -10,7 +10,7 @@ services:
     depends_on:
       - homer-tailscale
     network_mode: service:homer-tailscale
-    
+
   homer-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.74.1
     restart: on-failure

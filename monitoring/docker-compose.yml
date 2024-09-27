@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   grafana:
@@ -26,7 +26,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    
+
   tailscale-grafana:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.74.1
     restart: on-failure
@@ -39,7 +39,7 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-grafana-state:/var/lib/tailscale
-    
+
   prometheus:
     image: prom/prometheus:v2.54.1
     volumes:
@@ -50,11 +50,15 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
     network_mode: service:tailscale-prometheus
     healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --spider http://localhost:9090/-/healthy || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget --quiet --spider http://localhost:9090/-/healthy || exit 1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
-    
+
   tailscale-prometheus:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.74.1
     restart: on-failure
@@ -67,9 +71,9 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-prometheus-state:/var/lib/tailscale
-      
+
   cadvisor:
-    # latest tag is not updated, check latest release https://github.com/google/cadvisor/releases 
+    # latest tag is not updated, check latest release https://github.com/google/cadvisor/releases
     image: gcr.io/cadvisor/cadvisor:v0.50.0
     volumes:
       - /:/rootfs:ro
@@ -91,7 +95,11 @@ services:
       PVE_TOKEN_VALUE: ${PVE_TOKEN_VALUE:?err}
       PVE_VERIFY_SSL: false
     healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --spider http://localhost:9221/metrics || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget --quiet --spider http://localhost:9221/metrics || exit 1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3

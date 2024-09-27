@@ -9,7 +9,7 @@ services:
     depends_on:
       - companion-tailscale
     network_mode: service:companion-tailscale
-    
+
   companion-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.74.1
     restart: on-failure

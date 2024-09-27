@@ -8,7 +8,7 @@
         name: python3-docker
         state: present
         update_cache: yes
-        
+
     - name: prune non-dangling images
       become: yes
       community.docker.docker_prune:
