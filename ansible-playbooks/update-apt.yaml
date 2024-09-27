@@ -7,7 +7,7 @@
       apt:
         upgrade: yes
         update_cache: yes
-        
+
     - name: check if reboot is required
       become: true
       stat:
@@ -17,7 +17,7 @@
     - name: notify Google Chat if reboot required
       when: reboot_required.stat.exists
       uri:
-        url: '{{ google_chat_webhook_dev }}'
+        url: "{{ google_chat_webhook_dev }}"
         method: POST
         body: '{"cardsV2":[{"cardId":"ticket","card":{"header":{"title":"🔃🔃 Reboot Needed! 🔃🔃 ","subtitle":"Reboot required for updates on {{ inventory_hostname }}"}}}]}'
         body_format: json

@@ -1,3 +1,4 @@
+---
 version: "3"
 
 services:
@@ -16,7 +17,7 @@ services:
     depends_on:
       - tailscale
     network_mode: service:tailscale
-    
+
   tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.74.1
     restart: on-failure
@@ -30,7 +31,7 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-state:/var/lib/tailscale
-    
+
 volumes:
   ontime-db:
   ontime-styles:
