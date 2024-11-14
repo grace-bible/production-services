@@ -42,7 +42,7 @@ services:
       - tailscale-grafana-state:/var/lib/tailscale
 
   prometheus:
-    image: prom/prometheus:v2.55.1
+    image: prom/prometheus:v3.0.0
     volumes:
       - prometheus-config:/etc/prometheus
       - prometheus-data:/prometheus
