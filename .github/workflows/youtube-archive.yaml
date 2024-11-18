@@ -113,7 +113,7 @@ jobs:
                     "widgets": [
                       {
                         "textParagraph": {
-                          "text": "${{ steps.and_status.outputs.stdout }}"
+                          "text": "test ${{ steps.and_status.outputs.stdout }}"
                         }
                       }
                     ]
