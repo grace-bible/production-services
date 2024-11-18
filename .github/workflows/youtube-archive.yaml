@@ -40,7 +40,7 @@ jobs:
           --no-clean-info-json \
           --print after_video:"  - %(title)s" \
           "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"')'" >> "$GITHUB_OUTPUT"
-          echo $out
+          echo "$out"
         continue-on-error: true
         id: and_status
 
