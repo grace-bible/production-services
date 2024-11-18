@@ -110,19 +110,43 @@ jobs:
                 "sections": [
                   {
                     "header": "️🟡 AND 🟡 ${{ steps.and_status.outcome }}",
-                    "widgets": [{"textParagraph": {"text": "${{ steps.and_status.outputs.stdout }}"}}]
+                    "widgets": [
+                      {
+                        "textParagraph": {
+                          "text": "${{ steps.and_status.outputs.stdout }}"
+                        }
+                      }
+                    ]
                   },
                   {
                     "header": "️🟢 SW 🟢 ${{ steps.sw_status.outcome }}",
-                    "widgets": [{"textParagraph": {"text": "${{ steps.sw_status.outputs.stdout }}"}}]
+                    "widgets": [
+                      {
+                        "textParagraph": {
+                          "text": "${{ steps.sw_status.outputs.stdout }}"
+                        }
+                      }
+                    ]
                   },
                   {
                     "header": "️🔵 CRK 🔵 ${{ steps.crk_status.outcome }}",
-                    "widgets": [{"textParagraph": {"text": "${{ steps.crk_status.outputs.stdout }}"}}]
+                    "widgets": [
+                      {
+                        "textParagraph": {
+                          "text": "${{ steps.crk_status.outputs.stdout }}"
+                        }
+                      }
+                    ]
                   },
                   {
                     "header": "️🔴 MT 🔴 ${{ steps.mt_status.outcome }}",
-                    "widgets": [{"textParagraph": {"text": "${{ steps.mt_status.outputs.stdout }}"}}]
+                    "widgets": [
+                      {
+                        "textParagraph": {
+                          "text": "${{ steps.mt_status.outputs.stdout }}"
+                        }
+                      }
+                    ]
                   }
                 ]
               }
