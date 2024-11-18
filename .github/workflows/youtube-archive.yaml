@@ -27,8 +27,7 @@ jobs:
 
       - name: Download AND playlist with yt-dlp
         run: |
-          echo "out='$(
-          ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+          out=ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
           -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
           --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
           --write-info-json \
@@ -40,7 +39,8 @@ jobs:
           --file-access-retries 50 \
           --no-clean-info-json \
           --print after_video:"  - %(title)s" \
-          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"')'" >> "$GITHUB_OUTPUT"
+          "https://www.youtube.com/playlist?list=PLbQ39sgTWJxeVK3iDlN10wl_REBksOL6n"'
+          echo "out=$out" >> "$GITHUB_OUTPUT"
         continue-on-error: true
         id: and_status
 
