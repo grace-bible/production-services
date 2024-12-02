@@ -88,7 +88,7 @@ services:
     privileged: true
 
   pve:
-    image: prompve/prometheus-pve-exporter:3.4.5
+    image: prompve/prometheus-pve-exporter:3.4.6
     restart: on-failure
     environment:
       PVE_USER: ${PVE_USER:?err}
