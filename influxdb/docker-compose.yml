@@ -16,7 +16,7 @@ services:
       retries: 3
 
   tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.76.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.78.3
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}

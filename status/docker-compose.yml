@@ -13,7 +13,7 @@ services:
       - kuma-tailscale
     network_mode: service:kuma-tailscale
   kuma-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.76.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.78.3
     restart: always
     environment:
       TAILSCALE_SSH: true
