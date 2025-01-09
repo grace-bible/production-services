@@ -1,28 +1,79 @@
 ---
 version: "3"
 services:
-  companion:
-    image: ghcr.io/bitfocus/companion/companion:beta
+  companion-stable:
+    image: ghcr.io/bitfocus/companion/companion:latest@sha256:a0983ec85035bbc5e6f363eb18f39627cb4b6dec95669ed2ecd36d1ccc96b50d
     volumes:
-      - companion-data:/companion
+      - companion-stable-data:/companion
+      - /home/elliotmatson/containers/companion-module-dev:/app/module-local-dev
     restart: on-failure
     depends_on:
-      - companion-tailscale
-    network_mode: service:companion-tailscale
+      - companion-stable-tailscale
+    network_mode: service:companion-stable-tailscale
 
-  companion-tailscale:
+  companion-stable-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.78.3
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
-      TAILSCALE_HOSTNAME: companion
+      TAILSCALE_HOSTNAME: companion-stable
       TAILSCALE_SERVE_PORT: 8000
-      TAILSCALE_SSH: false
+      TAILSCALE_SSH: true
       TAILSCALE_STATE_DIR: /var/lib/tailscale
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
-      - tailscale-state:/var/lib/tailscale
+      - tailscale-stable-state:/var/lib/tailscale
+      
+  companion-beta:
+    image: ghcr.io/bitfocus/companion/companion:main@sha256:661146086459208d97bd730751202b982f41682203c4f332b8f76d9f30e63663
+    volumes:
+      - companion-beta-data:/companion
+      - /home/elliotmatson/containers/companion-module-dev:/app/module-local-dev
+    restart: on-failure
+    depends_on:
+      - companion-beta-tailscale
+    network_mode: service:companion-beta-tailscale
+
+  companion-beta-tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.78.3
+    restart: on-failure
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: companion-beta
+      TAILSCALE_SERVE_PORT: 8000
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-beta-state:/var/lib/tailscale
+      
+  companion-develop:
+    image: ghcr.io/bitfocus/companion/companion:develop@sha256:34978e58e60f54cd55b2be7a0e738c8695527f164bc95719a789f728a68c61b1
+    volumes:
+      - companion-develop-data:/companion
+      - /home/elliotmatson/containers/companion-module-dev:/app/module-local-dev
+    restart: on-failure
+    depends_on:
+      - companion-develop-tailscale
+    network_mode: service:companion-develop-tailscale
+
+  companion-develop-tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.78.3
+    restart: on-failure
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: companion-develop
+      TAILSCALE_SERVE_PORT: 8000
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-develop-state:/var/lib/tailscale
 
 volumes:
-  companion-data:
-  tailscale-state:
+  companion-stable-data:
+  tailscale-stable-state:
+  companion-beta-data:
+  tailscale-beta-state:
+  companion-develop-data:
+  tailscale-develop-state:
