@@ -4,9 +4,9 @@ services:
   n8n:
     image: ghcr.io/n8n-io/n8n:latest@sha256:9caf109e2293557568ab687b9d6c82646250c8ab7dcb20479c8bef9956811b7a
     environment:
-      - N8N_HOST=n8n.tail5c441.ts.net
+      - N8N_HOST=n8n.tail48658.ts.net
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://n8n.tail5c441.ts.net/
+      - WEBHOOK_URL=https://n8n.tail48658.ts.net/
       - GENERIC_TIMEZONE=America/Chicago
       - NODE_FUNCTION_ALLOW_EXTERNAL=html-to-notion
       - N8N_METRICS=true
