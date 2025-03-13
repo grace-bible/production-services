@@ -2,7 +2,7 @@
 version: "3"
 services:
   n8n:
-    image: ghcr.io/n8n-io/n8n:latest@sha256:9d385ac8e99103d2ed68f81eb2b586a8dd5c2b4d637f304347f4180270b0bc3b
+    image: ghcr.io/n8n-io/n8n:latest@sha256:2a75cf04abe8f59b982e73133bc99cd37907a3a435f1fa6c2a3521342f2a4663
     environment:
       - N8N_HOST=n8n.tail48658.ts.net
       - N8N_PROTOCOL=https
