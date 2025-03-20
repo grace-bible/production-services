@@ -2,7 +2,7 @@
 version: "3"
 services:
   companion-stable:
-    image: ghcr.io/bitfocus/companion/companion:latest@sha256:a16c5f87897f9ebc5e3f100873062a813367b76ad5dd56c2db255a1046fba4c1
+    image: ghcr.io/bitfocus/companion/companion:latest@sha256:304a38dc5747a410039aa79b3bacab512750fb79da708c20ee90f090ee6a9b63
     volumes:
       - companion-stable-data:/companion
       - /home/elliotmatson/containers/companion-module-dev:/app/module-local-dev
