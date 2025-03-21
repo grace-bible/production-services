@@ -48,7 +48,7 @@ services:
       - tailscale-beta-state:/var/lib/tailscale
 
   companion-develop:
-    image: ghcr.io/bitfocus/companion/companion:develop@sha256:cdf76f63d34392cf7575312458cf7d101bb68ac677d9ea04f4014862a49bf2ee
+    image: ghcr.io/bitfocus/companion/companion:develop@sha256:7d942cb3989ed25d66cc1dcea0b08a63273c310534d5cdb3e281c733f77184ad
     volumes:
       - companion-develop-data:/companion
       - /home/elliotmatson/containers/companion-module-dev:/app/module-local-dev
