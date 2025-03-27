@@ -30,7 +30,7 @@ services:
       interval: 30s
       retries: 3
 
-  tailscale:
+  n8n-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.80.3
     restart: always
     environment:
@@ -42,8 +42,42 @@ services:
       TAILSCALE_STATE_DIR: /var/lib/tailscale
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
-      - tailscale-state:/var/lib/tailscale
+      - n8n-tailscale-state:/var/lib/tailscale
+  
+  stirling-pdf:
+    image: ghcr.io/stirling-tools/stirling-pdf:0.45.0
+    volumes:
+      - trainingData:/usr/share/tessdata #Required for extra OCR languages
+      - extraConfigs:/configs
+      - customFiles:/customFiles/
+      - logs:/logs/
+      - pipeline:/pipeline/
+    environment:
+      - DOCKER_ENABLE_SECURITY=false
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
+      - LANGS=en_US
+    restart: unless-stopped
+
+  pdfs-tailscale:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.80.3
+    restart: always
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: pdfs
+      TAILSCALE_FUNNEL: false
+      TAILSCALE_SERVE_PORT: 8080
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - pdfs-tailscale-state:/var/lib/tailscale
 
 volumes:
+  trainingData:
+  extraConfigs:
+  customFiles:
+  logs:
+  pipeline:
   n8n-data:
-  tailscale-state:
+  n8n-tailscale-state:
+  pdfs-tailscale-state:
