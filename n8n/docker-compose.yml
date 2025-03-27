@@ -19,8 +19,8 @@ services:
       - n8n-data:/home/node/.n8n
     restart: always
     depends_on:
-      - tailscale
-    network_mode: service:tailscale
+      - n8n-tailscale
+    network_mode: service:n8n-tailscale
     healthcheck:
       test:
         [
@@ -56,7 +56,10 @@ services:
       - DOCKER_ENABLE_SECURITY=false
       - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
       - LANGS=en_US
-    restart: unless-stopped
+    restart: always
+    depends_on:
+      - pdfs-tailscale
+    network_mode: service:pdfs-tailscale
 
   pdfs-tailscale:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.80.3
