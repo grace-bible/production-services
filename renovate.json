@@ -15,6 +15,6 @@
       "matchPackageNames": ["ghcr.io/bitfocus/companion**"],
       "automerge": true,
       "automergeType": "branch"
-    },
+    }
   ]
 }
