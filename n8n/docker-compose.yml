@@ -43,7 +43,7 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - n8n-tailscale-state:/var/lib/tailscale
-  
+
   stirling-pdf:
     image: ghcr.io/stirling-tools/stirling-pdf:0.45.0
     volumes:
