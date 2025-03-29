@@ -8,12 +8,12 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "pin", "digest"],
-      "automerge": true
+      "automerge": true,
       "automergeType": "branch"
     },
     {
       "matchPackageNames": ["ghcr.io/bitfocus/companion**"],
-      "automerge": true
+      "automerge": true,
       "automergeType": "branch"
     },
   ]
