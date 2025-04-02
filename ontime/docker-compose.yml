@@ -19,7 +19,7 @@ services:
     network_mode: service:tailscale
 
   tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.80.3
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.82.0
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
