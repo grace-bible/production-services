@@ -9,6 +9,7 @@ services:
       - WEBHOOK_URL=https://n8n.tail48658.ts.net/
       - GENERIC_TIMEZONE=America/Chicago
       - NODE_FUNCTION_ALLOW_EXTERNAL=html-to-notion
+      - NODE_FUNCTION_ALLOW_BUILTIN=form-data
       - N8N_METRICS=true
       - N8N_METRICS_INCLUDE_MESSAGE_EVENT_BUS_METRICS=true
       - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABEL=true
