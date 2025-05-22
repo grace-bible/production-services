@@ -3,7 +3,7 @@ version: "3"
 
 services:
   grafana:
-    image: grafana/grafana-oss:11.6.1
+    image: grafana/grafana-oss:11.6.2
     volumes:
       - grafana-data:/var/lib/grafana
     restart: on-failure
