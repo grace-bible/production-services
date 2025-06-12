@@ -12,7 +12,7 @@ services:
     network_mode: service:companion-stable-tailscale
 
   companion-stable-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.0
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.2
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -35,7 +35,7 @@ services:
     network_mode: service:companion-beta-tailscale
 
   companion-beta-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.0
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.2
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -58,7 +58,7 @@ services:
     network_mode: service:companion-develop-tailscale
 
   companion-develop-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.0
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.2
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
