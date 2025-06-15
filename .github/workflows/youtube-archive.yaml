@@ -19,7 +19,6 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:github-actions
-          version: 1.72.1
           args: --ssh
 
       - name: Install yt-dlp
