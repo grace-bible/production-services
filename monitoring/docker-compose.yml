@@ -29,7 +29,7 @@ services:
       retries: 3
 
   tailscale-grafana:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.2
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.3
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -61,7 +61,7 @@ services:
       retries: 3
 
   tailscale-prometheus:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.2
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.84.3
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
