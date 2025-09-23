@@ -12,7 +12,7 @@ services:
     network_mode: service:homer-tailscale
 
   homer-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.86.5
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.88.2
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}

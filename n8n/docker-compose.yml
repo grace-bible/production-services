@@ -32,7 +32,7 @@ services:
       retries: 3
 
   n8n-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.86.5
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.88.2
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -63,7 +63,7 @@ services:
     network_mode: service:pdfs-tailscale
 
   pdfs-tailscale:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.86.5
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.88.2
     restart: always
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
