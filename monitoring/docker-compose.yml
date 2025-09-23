@@ -72,6 +72,55 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-prometheus-state:/var/lib/tailscale
+  
+  alloy:
+    image: grafana/alloy:v1.10.2
+    volumes:
+      - alloy-config:/etc/alloy/
+      - /tmp/app-logs/
+    command: run --server.http.listen-addr=0.0.0.0:12345 --stability.level=experimental  --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    depends_on:
+      - loki
+    restart: on-failure
+    network_mode: service:tailscale-alloy
+
+  tailscale-alloy:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.86.5
+    restart: on-failure
+    ports:
+      - 12345:12345
+      - "514:514/udp"     # Standard syslog UDP port
+      - "514:514/tcp"     # Standard syslog TCP port (if needed)
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: alloy
+      TAILSCALE_SERVE_PORT: 12345
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-alloy-state:/var/lib/tailscale
+
+  loki:
+    image: grafana/loki:${GRAFANA_LOKI_VERSION:-3.5.2}
+    volumes:
+      - loki-config:/etc/loki/
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: on-failure
+    network_mode: service:tailscale-loki
+  
+  tailscale-loki:
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.86.5
+    restart: on-failure
+    environment:
+      TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
+      TAILSCALE_HOSTNAME: loki
+      TAILSCALE_SERVE_PORT: 3100
+      TAILSCALE_SSH: true
+      TAILSCALE_STATE_DIR: /var/lib/tailscale
+      TAILSCALE_SERVE_SOURCE_MODE: http
+    volumes:
+      - tailscale-loki-state:/var/lib/tailscale
 
   cadvisor:
     # latest tag is not updated, check latest release https://github.com/google/cadvisor/releases
@@ -111,3 +160,7 @@ volumes:
   grafana-data:
   tailscale-grafana-state:
   tailscale-prometheus-state:
+  loki-config:
+  tailscale-loki-state:
+  alloy-config:
+  tailscale-alloy-state:
