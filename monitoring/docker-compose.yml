@@ -72,7 +72,7 @@ services:
       TAILSCALE_SERVE_SOURCE_MODE: http
     volumes:
       - tailscale-prometheus-state:/var/lib/tailscale
-  
+
   alloy:
     image: grafana/alloy:v1.11.2
     volumes:
@@ -89,8 +89,8 @@ services:
     restart: on-failure
     ports:
       - 12345:12345
-      - "514:514/udp"     # Standard syslog UDP port
-      - "514:514/tcp"     # Standard syslog TCP port (if needed)
+      - "514:514/udp" # Standard syslog UDP port
+      - "514:514/tcp" # Standard syslog TCP port (if needed)
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
       TAILSCALE_HOSTNAME: alloy
@@ -108,7 +108,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     restart: on-failure
     network_mode: service:tailscale-loki
-  
+
   tailscale-loki:
     image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.88.3
     restart: on-failure
