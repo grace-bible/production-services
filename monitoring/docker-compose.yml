@@ -29,7 +29,7 @@ services:
       retries: 3
 
   tailscale-grafana:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.8
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -61,7 +61,7 @@ services:
       retries: 3
 
   tailscale-prometheus:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.8
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
@@ -85,7 +85,7 @@ services:
     network_mode: service:tailscale-alloy
 
   tailscale-alloy:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.8
     restart: on-failure
     ports:
       - 12345:12345
@@ -110,7 +110,7 @@ services:
     network_mode: service:tailscale-loki
 
   tailscale-loki:
-    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.6
+    image: ghcr.io/elliotmatson/tailscale-sidecar-proxy:1.90.8
     restart: on-failure
     environment:
       TAILSCALE_AUTH_KEY: ${TS_AUTH_KEY:?err}
