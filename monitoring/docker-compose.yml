@@ -102,7 +102,7 @@ services:
       - tailscale-alloy-state:/var/lib/tailscale
 
   loki:
-    image: grafana/loki:3.5.8
+    image: grafana/loki:3.6.2
     volumes:
       - loki-config:/etc/loki/
     command: -config.file=/etc/loki/local-config.yaml
