@@ -46,7 +46,7 @@ services:
       - n8n-tailscale-state:/var/lib/tailscale
 
   stirling-pdf:
-    image: ghcr.io/stirling-tools/stirling-pdf:2.1.5
+    image: ghcr.io/stirling-tools/stirling-pdf:2.5.2
     volumes:
       - trainingData:/usr/share/tessdata #Required for extra OCR languages
       - extraConfigs:/configs
