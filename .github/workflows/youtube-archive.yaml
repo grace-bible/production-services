@@ -22,7 +22,7 @@ jobs:
           args: --ssh
 
       - name: Install yt-dlp
-        run: ssh -o StrictHostKeyChecking=no root@production 'sudo apt-get update && sudo apt-get install -y yt-dlp'
+        run: ssh -o StrictHostKeyChecking=no root@and-docker 'sudo apt-get update && sudo apt-get install -y yt-dlp'
 
       - name: Download AND playlist with yt-dlp
         run: |
