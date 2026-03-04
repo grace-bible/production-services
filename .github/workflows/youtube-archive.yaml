@@ -26,7 +26,7 @@ jobs:
 
       - name: Download AND playlist with yt-dlp
         run: |
-          ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+          ssh -o StrictHostKeyChecking=no root@and-docker 'yt-dlp \
           -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
           --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
           --write-info-json \
@@ -45,7 +45,7 @@ jobs:
 
       - name: Download SW playlist with yt-dlp
         run: |
-          ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+          ssh -o StrictHostKeyChecking=no root@and-docker 'yt-dlp \
           -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
           --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
           --write-info-json \
@@ -63,7 +63,7 @@ jobs:
 
       - name: Download CRK playlist with yt-dlp
         run: |
-          ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+          ssh -o StrictHostKeyChecking=no root@and-docker 'yt-dlp \
           -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
           --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
           --write-info-json \
@@ -81,7 +81,7 @@ jobs:
 
       - name: Download MT playlist with yt-dlp
         run: |
-          ssh -o StrictHostKeyChecking=no root@production 'yt-dlp \
+          ssh -o StrictHostKeyChecking=no root@and-docker 'yt-dlp \
           -o "${{ secrets.SERMON_ARCHIVE_PATH }}/%(playlist_title)s/%(upload_date)s - %(title)s/%(upload_date)s - %(title)s.%(ext)s.%(ext)s" \
           --download-archive "${{ secrets.SERMON_ARCHIVE_PATH }}/archive.txt" \
           --write-info-json \
